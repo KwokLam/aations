@@ -1,5 +1,7 @@
 name: docker
 on: 
+  schedule:
+    - cron: '0 */6 * * *'
   workflow_dispatch:
 jobs:
   test:
@@ -7,11 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        env:
-          SA_URL: ${{ secrets.SA_URL }}
-          SA_SECRET: ${{ secrets.SA_SECRET }}
-          ARIA2C_SECRET: ${{ secrets.ARIA2C_SECRET }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: wget -q ${{ secrets.DOCKER_URL }} && docker-compose up -d
       - name: Check running containers
         run: | 
