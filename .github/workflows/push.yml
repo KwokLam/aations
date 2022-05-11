@@ -31,4 +31,4 @@ jobs:
           echo "${{ secrets.TUNNEL_JSON }}" > easydown.json
           cloudflared tunnel --config easydown.yml run&
       - name: Run test suite
-        run: sleep 1h
+        run: sleep 6h
