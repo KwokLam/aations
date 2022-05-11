@@ -1,0 +1,14 @@
+version: '2'
+services:
+  web:
+    image: kwok1am/action:v1
+    container_name: easydown
+    volumes:
+      - ./downloads:/app/downloads
+    ports:
+      - "0.0.0.0:6900:6900"
+    environment:
+      - SIZE_FILTER=40M
+      - RCLONE_DESTINATION=gc:{1QZLVp0hXUrIxa4A7pZvqJsbkwBR14q4v}
+      - RCLONE_CONFIG=[gc]\ntype = drive\nscope = drive\nservice_account_file = /app/accounts/33.json\nservice_account_file_path = /app/accounts/\n
+    restart: unless-stopped
