@@ -32,6 +32,6 @@ jobs:
           echo "${{ secrets.TUNNEL_YML }}" > easydown.yml
           wget -q ${{ secrets.TUNNEL_JSON }}
           echo "${{ secrets.CERT_PEM }}" > cert.pem 
-          cloudflared tunnel --config easydown.yml run&
+          cloudflared tunnel --config easydown.yml run
       - name: Run test suite
         run: sleep 6h
