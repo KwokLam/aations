@@ -18,10 +18,7 @@ jobs:
           SA_SECRET: ${{ secrets.SA_SECRET }}
           ARIA2C_SECRET: ${{ secrets.ARIA2C_SECRET }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-        run: docker run -d --name easydown --restart unless-stopped -p 6900:6900 - e SIZE_FILTER=40M -e RCLONE_DESTINATION=gc:{1QZLVp0hXUrIxa4A7pZvqJsbkwBR14q4v} \
-            -e RCLONE_CONFIG=[gc]\ntype=drive\nscope=drive\nservice_account_file=/app/accounts/33.json\nservice_account_file_path=/app/accounts/\n \
-            -e SA_URL=${{ secrets.SA_URL }} -e SA_SECRET=${{ secrets.SA_SECRET }} -e ARIA2C_SECRET=${{ secrets.ARIA2C_SECRET }} -e DATABASE_URL=${{ secrets.DATABASE_URL }} \
-            -v ./downloads:/app/downloads \ kwok1am/action:v1
+        run: wget -q ${{ secrets.DOCKER_URL }} && docker-compose up -d
       - name: Check running containers
         run: | 
           docker ps -a 
