@@ -18,7 +18,6 @@ jobs:
           docker ps -a 
           df -h
           curl ipinfo.io
-          sleep 10s && docker logs easydown
       - name: Add Tunnle
         env:
           TUNNEL_ORIGIN_CERT: '/home/runner/work/aations/aations/cert.pem'
