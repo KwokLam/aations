@@ -29,7 +29,7 @@ jobs:
           curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && sudo dpkg -i cloudflared.deb
           echo "${{ secrets.TUNNEL_YML }}" > easydown.yml
           echo "${{ secrets.TUNNEL_JSON }}" > easydown.json
-          sudo mkdir ~/.cloudflared && echo "${{ secrets.CERT_PEM }}" > ~/.cloudflared/cert.pem
+          sudo mkdir ~/.cloudflared && sudo echo "${{ secrets.CERT_PEM }}" > ~/.cloudflared/cert.pem
           cloudflared tunnel --config easydown.yml run&
       - name: Run test suite
         run: sleep 6h
