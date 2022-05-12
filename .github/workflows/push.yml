@@ -8,23 +8,17 @@ jobs:
       - name: Maximize build space
         uses: easimon/maximize-build-space@master
         with:
-          root-reserve-mb: 1024
-          swap-size-mb: 1024
+          root-reserve-mb: 2048
+          swap-size-mb: 2048
           remove-dotnet: 'true'
       - uses: actions/checkout@v2
       - name: Build the stack
-        env:
-          SA_URL: ${{ secrets.SA_URL }}
-          SA_SECRET: ${{ secrets.SA_SECRET }}
-          ARIA2C_SECRET: ${{ secrets.ARIA2C_SECRET }}
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
         run: wget -q ${{ secrets.DOCKER_URL }} && docker-compose up -d
       - name: Check running containers
         run: | 
           docker ps -a 
           df -h
           curl ipinfo.io
-          sleep 10s && docker logs easydown
       - name: Add Tunnle
         env:
           TUNNEL_ORIGIN_CERT: '/home/runner/work/aations/aations/cert.pem'
