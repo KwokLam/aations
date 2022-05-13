@@ -1,0 +1,24 @@
+name: test
+on: 
+#  schedule:
+#    - cron: '0 */6 * * *'
+  workflow_dispatch:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize build space
+        uses: AdityaGarg8/remove-unwanted-software@v1
+        with:
+          remove-dotnet: 'true'
+          remove-android: 'true'
+      - uses: actions/checkout@v2
+      - name: Check running containers
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: | 
+          docker ps -a 
+          df -h
+          curl ipinfo.io
+          sleep 20s
+          gh workflow run test.yml
