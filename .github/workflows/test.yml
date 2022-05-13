@@ -1,4 +1,4 @@
-name: docker
+name: test
 on: 
 #  schedule:
 #    - cron: '0 */6 * * *'
@@ -12,8 +12,9 @@ jobs:
         with:
           remove-dotnet: 'true'
           remove-android: 'true'
-      - name: Check running containers
+
       - uses: actions/checkout@v2
+      - name: Check running containers
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: | 
