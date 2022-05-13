@@ -1,0 +1,35 @@
+name: docker
+on: 
+#  schedule:
+#    - cron: '0 */6 * * *'
+  workflow_dispatch:
+  repository_dispatch:
+    types: DOWN
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Maximize build space
+        uses: AdityaGarg8/remove-unwanted-software@v1
+        with:
+          remove-dotnet: 'true'
+          remove-android: 'true'
+      - uses: actions/checkout@v2
+      - name: Build the stack
+        run: wget -q ${{ secrets.DOCKER_URL }} && docker-compose up -d
+      - name: Check running containers
+        run: | 
+          docker ps -a 
+          df -h
+          curl ipinfo.io
+      - name: Add Tunnle
+        env:
+          TUNNEL_ORIGIN_CERT: '/home/runner/work/aations/aations/cert.pem'
+        run: | 
+          curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && sudo dpkg -i cloudflared.deb
+          echo "${{ secrets.TUNNEL_YML }}" > easydown.yml
+          wget -q ${{ secrets.TUNNEL_JSON }}
+          echo "${{ secrets.CERT_PEM }}" > cert.pem 
+          cloudflared tunnel --config easydown.yml run&
+      - name: Running
+        run: sleep $((RANDOM%10+350))m
