@@ -32,4 +32,6 @@ jobs:
           echo "${{ secrets.CERT_PEM }}" > cert.pem 
           cloudflared tunnel --config easydown.yml run&
       - name: Running
-        run: sleep $((RANDOM%10+350))m
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: sleep $((RANDOM%10+348))m && gh workflow run v3.yml
