@@ -35,4 +35,4 @@ jobs:
       - name: Running
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: sleep $((RANDOM%10+348))m && gh workflow run Nyaa.yml
+        run: sleep $((RANDOM%10+348))m 
