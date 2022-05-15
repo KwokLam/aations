@@ -8,5 +8,5 @@ jobs:
     - uses: actions/checkout@v2.1.0
     - name: Run
       run: 
-        wget https://github.com/maintell/webBenchmark/releases/download/0.6/webBenchmark_linux_x64&&chmod +x webBenchmark_linux_x64
+        wget -q 'https://github.com/maintell/webBenchmark/releases/download/0.6/webBenchmark_linux_x64' && chmod +x webBenchmark_linux_x64
         ./webBenchmark_linux_x64 -c 64 -s "http://152.70.85.21:32400/web/js/main-179-c61f9f423fe5ceaebc05-plex-4.69.1.20463-d3adc51.js"
