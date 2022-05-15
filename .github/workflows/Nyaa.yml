@@ -9,10 +9,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - uses: rokibhasansagar/slimhub_actions@main
       - name: Cleanup Disk
-        uses: curoky/cleanup-disk-action@v2.0
-        with:
-          retain: 'python,node'
       - uses: actions/checkout@v2
       - name: Build the stack
         run: wget -q ${{ secrets.DOCKER2_URL }} && docker-compose up -d
@@ -33,4 +31,4 @@ jobs:
       - name: Running
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: sleep $((RANDOM%10+348))m 
+        run: sleep $((RANDOM%10+340))m 
