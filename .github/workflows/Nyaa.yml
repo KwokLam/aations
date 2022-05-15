@@ -9,8 +9,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: rokibhasansagar/slimhub_actions@main
       - name: Cleanup Disk
+      - uses: rokibhasansagar/slimhub_actions@main
       - uses: actions/checkout@v2
       - name: Build the stack
         run: wget -q ${{ secrets.DOCKER2_URL }} && docker-compose up -d
