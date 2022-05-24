@@ -6,7 +6,7 @@ on:
   repository_dispatch:
     types: Nyaa
 jobs:
-  test:
+  Nyaa:
     runs-on: ubuntu-latest
     steps:
       - uses: rokibhasansagar/slimhub_actions@main
