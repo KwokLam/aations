@@ -27,7 +27,7 @@ jobs:
           echo "${{ secrets.TUNNEL2_YML }}" > nyaa.yml
           wget -q ${{ secrets.TUNNEL2_JSON }}
           echo "${{ secrets.CERT_PEM }}" > cert.pem 
-          sudo sysctl -w kern.ipc.maxsockbuf=3014656
+          sudo sysctl -w net.core.rmem_max=2500000
           cloudflared tunnel --config nyaa.yml run
       #- name: Running
       #  env:
