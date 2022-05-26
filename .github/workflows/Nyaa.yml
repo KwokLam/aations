@@ -9,14 +9,7 @@ jobs:
   Nyaa:
     runs-on: ubuntu-latest
     steps:
-      #- uses: rokibhasansagar/slimhub_actions@main
-      - name: Maximize build space
-        uses: AdityaGarg8/remove-unwanted-software@v1
-        with:
-          remove-dotnet: 'true'
-          remove-android: 'true'
-          remove-haskell: 'true'
-      - uses: actions/checkout@v2
+      - uses: rokibhasansagar/slimhub_actions@main
       - name: Build the stack
         run: wget -q ${{ secrets.DOCKER2_URL }} && docker-compose up -d
       - name: Check running containers
@@ -34,8 +27,8 @@ jobs:
           wget -q ${{ secrets.TUNNEL2_JSON }}
           echo "${{ secrets.CERT_PEM }}" > cert.pem 
           sudo sysctl -w net.core.rmem_max=2500000
-          cloudflared tunnel --config nyaa.yml run
-      #- name: Running
-      #  env:
-      #    GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-      #  run: sleep $((RANDOM%10+340))m 
+          nohup cloudflared tunnel --config nyaa.yml run &
+      - name: Running
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        run: sleep $((RANDOM%10+340))m 
