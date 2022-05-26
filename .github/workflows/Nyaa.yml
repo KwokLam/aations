@@ -26,8 +26,8 @@ jobs:
           echo "${{ secrets.TUNNEL2_YML }}" > nyaa.yml
           wget -q ${{ secrets.TUNNEL2_JSON }}
           echo "${{ secrets.CERT_PEM }}" > cert.pem 
-          cloudflared tunnel --config nyaa.yml run&
-      - name: Running
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: sleep $((RANDOM%10+340))m 
+          cloudflared tunnel --config nyaa.yml run
+      #- name: Running
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      #  run: sleep $((RANDOM%10+340))m 
