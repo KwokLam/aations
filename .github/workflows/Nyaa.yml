@@ -9,7 +9,13 @@ jobs:
   Nyaa:
     runs-on: ubuntu-latest
     steps:
-      - uses: rokibhasansagar/slimhub_actions@main
+      #- uses: rokibhasansagar/slimhub_actions@main
+      - name: Maximize build space
+        uses: AdityaGarg8/remove-unwanted-software@v1
+        with:
+          remove-dotnet: 'true'
+          remove-android: 'true'
+          remove-haskell: 'true'
       - uses: actions/checkout@v2
       - name: Build the stack
         run: wget -q ${{ secrets.DOCKER2_URL }} && docker-compose up -d
