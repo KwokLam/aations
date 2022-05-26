@@ -17,6 +17,7 @@ jobs:
         run: | 
           docker ps -a 
           df -h
+          free -m
           curl ipinfo.io
       - name: Add Tunnle
         env:
@@ -26,6 +27,7 @@ jobs:
           echo "${{ secrets.TUNNEL2_YML }}" > nyaa.yml
           wget -q ${{ secrets.TUNNEL2_JSON }}
           echo "${{ secrets.CERT_PEM }}" > cert.pem 
+          sudo sysctl -w kern.ipc.maxsockbuf=3014656
           cloudflared tunnel --config nyaa.yml run
       #- name: Running
       #  env:
