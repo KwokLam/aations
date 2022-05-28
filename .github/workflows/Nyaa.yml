@@ -22,7 +22,7 @@ jobs:
         env:
           TUNNEL_ORIGIN_CERT: '/home/runner/work/aations/aations/cert.pem'
           TUNNEL_RETRIES: 10
-          TUNNEL_TRANSPORT_PROTOCOL: quic
+          TUNNEL_TRANSPORT_PROTOCOL: http2
         run: | 
           curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && sudo dpkg -i cloudflared.deb
           echo "${{ secrets.TUNNEL2_YML }}" > nyaa.yml
