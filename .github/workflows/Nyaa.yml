@@ -1,7 +1,7 @@
 name: Nyaa
 on: 
   schedule:
-    - cron: '0 4,12 * * *'
+    - cron: '5 4,12 * * *'
   workflow_dispatch:
   repository_dispatch:
     types: Nyaa
@@ -29,8 +29,10 @@ jobs:
           wget -q ${{ secrets.TUNNEL2_JSON }}
           echo "${{ secrets.CERT_PEM }}" > cert.pem 
           sudo sysctl -w net.core.rmem_max=2500000
-          nohup cloudflared tunnel --config nyaa.yml run &
-      - name: Running
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: sleep $((RANDOM%10+340))m 
+          cloudflared tunnel --config nyaa.yml run
+          
+      #- name: Running
+        #env:
+        #  GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        #run: sleep $((RANDOM%10+340))m 
+        # nohup cloudflared tunnel --config nyaa.yml run &
