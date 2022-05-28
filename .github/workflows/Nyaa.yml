@@ -7,7 +7,7 @@ on:
     types: Nyaa
 jobs:
   Nyaa:
-    runs-on: ubuntu-22.04	
+    runs-on: ubuntu-20.04	
     steps:
       - uses: rokibhasansagar/slimhub_actions@main
       - name: Build the stack
