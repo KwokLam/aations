@@ -33,4 +33,5 @@ jobs:
       - name: Running
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: sleep $((RANDOM%10+340))m 
+        run: docker logs -f -t easydown
+        #sleep $((RANDOM%10+340))m 
