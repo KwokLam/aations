@@ -10,7 +10,9 @@ jobs:
     steps:
       #- uses: rokibhasansagar/slimhub_actions@main
       - name: Build the stack
-        run: wget -q ${{ secrets.DOCKER2_URL }} && docker-compose up -d
+        run: |
+          brew cask install docker
+          wget -q ${{ secrets.DOCKER2_URL }} && docker-compose up -d
       - name: Check running containers
         run: | 
           docker ps -a 
