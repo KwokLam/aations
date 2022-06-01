@@ -8,7 +8,7 @@ jobs:
   AutoNyaa:
     runs-on: macos-11
     steps:
-      - uses: rokibhasansagar/slimhub_actions@main
+      #- uses: rokibhasansagar/slimhub_actions@main
       - name: Build the stack
         run: wget -q ${{ secrets.DOCKER2_URL }} && docker-compose up -d
       - name: Check running containers
@@ -23,7 +23,7 @@ jobs:
           TUNNEL_RETRIES: 10
           TUNNEL_TRANSPORT_PROTOCOL: http2
         run: | 
-          curl -L --output cloudflared.deb https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64.deb && sudo dpkg -i cloudflared.deb
+          brew install cloudflare/cloudflare/cloudflared
           echo "${{ secrets.TUNNEL2_YML }}" > nyaa.yml
           wget -q ${{ secrets.TUNNEL2_JSON }}
           echo "${{ secrets.CERT_PEM }}" > cert.pem 
