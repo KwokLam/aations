@@ -34,5 +34,5 @@ jobs:
       - name: Running
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: sleep $((RANDOM%10+227))m
+        run: sleep $((RANDOM%10+228))m
         #gh workflow run v3.yml
