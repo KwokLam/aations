@@ -31,7 +31,6 @@ jobs:
           wget -q ${{ secrets.TUNNEL_JSON }}
           echo "${{ secrets.CERT_PEM }}" > cert.pem 
           cloudflared tunnel --config easydown.yml run&
-          docker logs -f easydown
       - name: Running
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
