@@ -1,7 +1,7 @@
 name: jav
 on: 
   schedule:
-    - cron: '30 17 * * *'
+    - cron: '15 17 * * *'
   workflow_dispatch:
   repository_dispatch:
     types: JAV
@@ -26,6 +26,7 @@ jobs:
       - name: Install dependencies
         run: |
           Start-Process -FilePath ".\rclone\rclone-v1.60.0-windows-amd64\rclone.exe" -ArgumentList "mount daily: .\daily --allow-other  --vfs-cache-mode full  --buffer-size 256M --low-level-retries 200 --dir-cache-time 24h --vfs-cache-max-age 24h --vfs-read-chunk-size 64M --vfs-read-chunk-size-limit 5G  --poll-interval 15s" -WindowStyle hidden
+          Start-Sleep -s 15
           Start-Process -FilePath .\mdcx\MDCx.exe -WorkingDirectory .\mdcx
           Start-Sleep -s 25
           TREE /F .\mdcx
