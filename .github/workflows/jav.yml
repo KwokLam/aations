@@ -1,10 +1,14 @@
 name: jav
 on: 
+  schedule:
+    - cron: '30 17 * * *'
   workflow_dispatch:
+  repository_dispatch:
+    types: JAV
 jobs:
   bench:
     runs-on: windows-latest
-    timeout-minutes: 120
+    timeout-minutes: 60
     steps:
       - name: Download&Unzip mdcx
         run: |
