@@ -1,0 +1,28 @@
+name: jav
+on: 
+  workflow_dispatch:
+jobs:
+  bench:
+    runs-on: windows-latest
+    timeout-minutes: 120
+    steps:
+      - name: Download&Unzip mdcx
+        run: |
+          Invoke-WebRequest -Uri ${{ secrets.MDCX_URL }} -outfile MDCx.zip
+          Expand-Archive -Path "MDCx.zip" -DestinationPath "mdcx"
+          Invoke-WebRequest -Uri ${{ secrets.MDCX_CONF }} -outfile ./mdcx/config.ini
+      - name: Install Rclone
+        run: |
+          Invoke-WebRequest -Uri "https://downloads.rclone.org/v1.60.0/rclone-v1.60.0-windows-amd64.zip" -outfile rclone.zip
+          Expand-Archive -Path "rclone.zip" -DestinationPath "rclone"
+          Invoke-WebRequest -Uri ${{ secrets.RCLONE_CONF }} -outfile .\rclone\rclone-v1.60.0-windows-amd64\rclone.conf
+          #安装winfsp
+          Invoke-WebRequest -Uri "https://github.com/winfsp/winfsp/releases/download/v1.12/winfsp-1.12.22301.msi" -outfile winfsp.msi
+          msiexec /i winfsp.msi /q
+      - name: Install dependencies
+        run: |
+          Start-Process -FilePath ".\rclone\rclone-v1.60.0-windows-amd64\rclone.exe" -ArgumentList "mount daily: .\daily --allow-other  --vfs-cache-mode full  --buffer-size 256M --low-level-retries 200 --dir-cache-time 24h --vfs-cache-max-age 24h --vfs-read-chunk-size 64M --vfs-read-chunk-size-limit 5G  --poll-interval 15s" -WindowStyle hidden
+          Start-Process -FilePath .\mdcx\MDCx.exe -WorkingDirectory .\mdcx
+          Start-Sleep -s 25
+          TREE /F .\mdcx
+          Get-Content .\mdcx\log\*.txt -Wait
