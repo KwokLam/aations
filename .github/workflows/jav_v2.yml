@@ -33,7 +33,7 @@ jobs:
           Start-Sleep -s 25
           TREE /F .\mdcx
       - name: PRINT LOG
-        timeout-minutes: 150
+        timeout-minutes: 180
         run: |
           $targetString = "All finished"
           Get-Content .\mdcx\log\*.txt -Wait | ForEach-Object {
