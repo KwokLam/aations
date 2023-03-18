@@ -35,21 +35,9 @@ jobs:
       - name: PRINT LOG
         timeout-minutes: 150
         run: |
-          $timeout = 2700
-          $start_time = Get-Date
-          $pos = 0
-          while ((Get-Date) - $start_time -lt [TimeSpan]::FromSeconds($timeout)) {
-              if (Test-Path ".\mdcx\log\*.txt") {
-                  $size = (Get-Item .\mdcx\log\*.txt).Length
-                  if ($size -gt $pos) {
-                      $content = Get-Content .\mdcx\log\*.txt -Tail ($size - $pos) -Encoding UTF8
-                      Write-Host $content "`n"
-                      if ($content -match "All finished") {
-                          Write-Host "Log output completed."
-                          break
-                      }
-                      $pos = $size
-                  }
-              }
-              Start-Sleep -Seconds 5
+          $targetString = "All finished"
+          Get-Content .\mdcx\log\*.txt -Wait | ForEach-Object {
+            $isFinished = ($_ | Select-String -SimpleMatch $targetString).Count -gt 0
+            Write-Output $_
+            if($isFinished) { break }
           }
