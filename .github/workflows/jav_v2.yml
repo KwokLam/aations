@@ -43,7 +43,7 @@ jobs:
                   $size = (Get-Item .\mdcx\log\*.txt).Length
                   if ($size -gt $pos) {
                       $content = Get-Content .\mdcx\log\*.txt -Tail ($size - $pos) -Encoding UTF8
-                      Write-Host $content
+                      Write-Host $content "`n"
                       if ($content -match "All finished") {
                           Write-Host "Log output completed."
                           break
