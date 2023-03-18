@@ -39,10 +39,10 @@ jobs:
           $start_time = Get-Date
           $pos = 0
           while ((Get-Date) - $start_time -lt [TimeSpan]::FromSeconds($timeout)) {
-              if (Test-Path ".\mdcx\log\output.log") {
-                  $size = (Get-Item .\mdcx\log\output.log).Length
+              if (Test-Path ".\mdcx\log\*.txt") {
+                  $size = (Get-Item .\mdcx\log\*.txt).Length
                   if ($size -gt $pos) {
-                      $content = Get-Content .\mdcx\log\output.log -Tail ($size - $pos) -Encoding UTF8
+                      $content = Get-Content .\mdcx\log\*.txt -Tail ($size - $pos) -Encoding UTF8
                       Write-Host $content
                       if ($content -match "All finished") {
                           Write-Host "Log output completed."
