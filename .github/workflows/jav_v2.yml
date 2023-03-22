@@ -30,8 +30,16 @@ jobs:
           Start-Sleep -s 10
           TREE .\daily\Nyaa
           Start-Process -FilePath .\mdcx\MDCx.exe -WorkingDirectory .\mdcx
-          Start-Sleep -s 25
+          Start-Sleep -s 15
           TREE /F .\mdcx
+      - name: Check MDCx Config
+        timeout-minutes: 1
+        run: |
+          if (!(Test-Path .\mdcx\MDCx.config)) {
+            Stop-Process -Name MDCx
+            Start-Process -FilePath .\mdcx\MDCx.exe -WorkingDirectory .\mdcx
+            Start-Sleep -s 15
+          }
       - name: PRINT LOG
         timeout-minutes: 180
         run: |
